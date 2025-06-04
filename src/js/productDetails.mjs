@@ -1,4 +1,4 @@
-import { findProductById } from "./productData.mjs";
+import { findProductById } from "./externalServices.mjs";
 import { setLocalStorage } from "./utils.mjs";
 
 let product = {};
@@ -12,13 +12,25 @@ export default async function productDetails(productId) {
   document.getElementById("addToCart").addEventListener("click", addToCart);
 }
 function addToCart() {
-  setLocalStorage("so-cart", product);
+  // Get current cart or initialize empty array if none exists
+  let cart = JSON.parse(localStorage.getItem("so-cart")) || [];
+
+  // If cart isn't an array yet (handling first item case)
+  if (!Array.isArray(cart)) {
+    cart = [cart];
+  }
+
+  // Add the current product to the cart array
+  cart.push(product);
+
+  // Save updated cart back to localStorage
+  setLocalStorage("so-cart", cart);
 }
 function renderProductDetails() {
   document.querySelector("#productName").innerText = product.Brand.Name;
   document.querySelector("#productNameWithoutBrand").innerText =
     product.NameWithoutBrand;
-  document.querySelector("#productImage").src = product.Image;
+  document.querySelector("#productImage").src = product.Images.PrimaryMedium;
   document.querySelector("#productImage").alt = product.Name;
   document.querySelector("#productFinalPrice").innerText = product.FinalPrice;
   document.querySelector("#productColorName").innerText =
