@@ -234,6 +234,19 @@ button {
   grid-column: 3;
 }
 
+.checkout {
+  display: inline-block;
+  background-color: #4a5008; /* Olive green similar to the image */
+  color: white;
+  text-decoration: none;
+  padding: 12px 24px;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+}
+
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;

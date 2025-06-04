@@ -11,13 +11,13 @@ function renderCartContents() {
 
 function cartItemTemplate(item) {
   const newItem = `<li class="cart-card divider">
-  <a href="#" class="cart-card__image">
+  <a href="../product_pages/index.html?product=${item.Id}" class="cart-card__image">
     <img
-      src="${item.Image}"
+      src="${item.Images.PrimarySmall}"
       alt="${item.Name}"
     />
   </a>
-  <a href="#">
+  <a href="../product_pages/index.html?product=${item.Id}">
     <h2 class="card__name">${item.Name}</h2>
   </a>
   <p class="cart-card__color">${item.Colors[0].ColorName}</p>
@@ -28,4 +28,11 @@ function cartItemTemplate(item) {
   return newItem;
 }
 
+function calculateCartTotal() {
+  const cartItems = getLocalStorage("so-cart");
+  const total = cartItems.reduce((sum, item) => sum + Number(item.FinalPrice), 0);
+  document.getElementById("cartTotal").textContent = total.toFixed(2);
+}
+
 renderCartContents();
+calculateCartTotal();
