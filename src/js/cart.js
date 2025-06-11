@@ -6,10 +6,12 @@ loadHeaderFooter();
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart");
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
+  console.log(cartItems);
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
 }
 
 function cartItemTemplate(item) {
+  console.log(item)
   const newItem = `<li class="cart-card divider">
   <a href="../product_pages/index.html?product=${item.Id}" class="cart-card__image">
     <img

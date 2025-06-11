@@ -1,4 +1,4 @@
-import { loadHeaderFooter, getLocalStorage } from "./utils.mjs";
+import { loadHeaderFooter, getLocalStorage, alertMessage } from "./utils.mjs";
 import checkoutProcess from "./checkoutProcess.mjs";
 import * as externalServices from "./externalServices.mjs";
 
@@ -11,37 +11,32 @@ document.getElementById("zip").addEventListener("blur", () => {
   checkoutProcess.calculateOrdertotal();
 });
 
-document.forms["checkout-form"].addEventListener("submit", async (e) => {
+document.forms["checkout-form"].addEventListener("submit", (e) => {
     e.preventDefault();
 
     const form = e.target;
-    const order = {
-        orderDate: new Date().toISOString(),
-        fname: form.fname.value,
-        lname: form.lname.value,
-        street: form.street.value,
-        city: form.city.value,
-        state: form.state.value,
-        zip: form.zip.value,
-        cardNumber: form.cardNumber.value,
-        expiration: form.expiration.value,
-        code: form.code.value,
-        items: checkoutProcess.list.map(item => ({
-        id: item.Id,
-        name: item.Name,
-        price: item.FinalPrice,
-        quantity: 1
-        })),
-        orderTotal: checkoutProcess.orderTotal.toFixed(2),
-        shipping: checkoutProcess.shipping.toFixed(2),
-        tax: checkoutProcess.tax.toFixed(2)
-    };
+    console.log(form);
+    // const order = {
+    //     orderDate: new Date().toISOString(),
+    //     fname: form.fname.value,
+    //     lname: form.lname.value,
+    //     street: form.street.value,
+    //     city: form.city.value,
+    //     state: form.state.value,
+    //     zip: form.zip.value,
+    //     cardNumber: form.cardNumber.value,
+    //     expiration: form.expiration.value,
+    //     code: form.code.value,
+    //     items: checkoutProcess.list.map(item => ({
+    //     id: item.Id,
+    //     name: item.Name,
+    //     price: item.FinalPrice,
+    //     quantity: 1
+    //     })),
+    //     orderTotal: checkoutProcess.orderTotal.toFixed(2),
+    //     shipping: checkoutProcess.shipping.toFixed(2),
+    //     tax: checkoutProcess.tax.toFixed(2)
+    // };
 
-    try {
-        const result = await externalServices.checkout(order);
-        console.log("Order submitted successfully:", result);
-        // Optionally clear cart and redirect to a success page
-    } catch (err) {
-        console.error("Checkout error:", err);
-    }
+    checkoutProcess.checkout(form);
 });
