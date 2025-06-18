@@ -37,11 +37,11 @@ export async function checkout(orderData) {
   };
   try {
     const response = await fetch(url, options);
-    return await response.json();
-  } catch (e) {
-    if (!response.ok) {
-      console.log(e);
+    if (response.status != 200) {
       throw new Error("Checkout failed");
   }
+    return await response.json();
+  } catch (e) {
+    console.log(e);
 } 
 }

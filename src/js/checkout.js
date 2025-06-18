@@ -1,6 +1,5 @@
 import { loadHeaderFooter, getLocalStorage, alertMessage } from "./utils.mjs";
 import checkoutProcess from "./checkoutProcess.mjs";
-import * as externalServices from "./externalServices.mjs";
 
 loadHeaderFooter();
 
