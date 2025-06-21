@@ -100,17 +100,19 @@ const checkoutProcess = {
       const res = await checkout(json);
       console.log(res);
       setLocalStorage("so-cart", []);
-      //location.assign("/checkout/success.html");
+      location.assign("success.html");
     } catch (err) {
-      // get rid of any preexisting alerts.
       removeAllAlerts();
-      for (let message in err.message) {
-        console.log(message)
-        console.log(err.message)
-        alertMessage(err.message);
+      if (err.name === "servicesError" && typeof err.message === "object") {
+        // show each field-specific message
+        Object.entries(err.message).forEach(([field, msg]) => {
+          alertMessage(`${field}: ${msg}`, true);
+        });
+      } else {
+        // fallback for any other error
+        alertMessage(err.message || err.toString(), true);
       }
-
-      console.log(err);
+      console.error(err);
     }
   }
 }

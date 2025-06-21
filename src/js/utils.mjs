@@ -67,14 +67,9 @@ export async function loadHeaderFooter() {
 }
 
 export function alertMessage(message, scroll = true) {
-  const exist = document.querySelector(".custom-alert");
-  if (exist) {
-    exist.remove();
-  }
-  // create element to hold our alert
   const alert = document.createElement('div');
-  // add a class to style the alert
   alert.classList.add('custom-alert');
+
   // set the contents. You should have a message and an X or something the user can click on to remove
   alert.innerHTML = `<div class="alert-content">
                         <p>${message}</p>
@@ -99,6 +94,6 @@ export function alertMessage(message, scroll = true) {
 }
 
 export function removeAllAlerts() {
-  const alerts = document.querySelectorAll(".alert");
-  alerts.forEach((alert) => document.querySelector("main").removeChild(alert));
+  const alerts = document.querySelectorAll(".custom-alert");
+  alerts.forEach((a) => document.querySelector("main").removeChild(a));
 }
