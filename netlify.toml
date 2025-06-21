@@ -1,0 +1,11 @@
+
+
+[build]
+  command = "npm run build"    # your existing build command
+  publish = "dist"             # where Vite outputs your site
+
+[[redirects]]
+  from   = "/api/*"                                    # catch-all under /api
+  to     = "http://server-nodejs.cit.byui.edu:3000/:splat"  
+  status = 200                                         # proxy (rewrite) with 200
+  force  = true                                        # overrides any existing file
